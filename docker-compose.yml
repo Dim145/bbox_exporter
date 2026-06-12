@@ -1,0 +1,19 @@
+services:
+  bb_exporter:
+    build: .
+    image: registry.dim145.fr/dim145/bb_exporter:latest
+    container_name: bb_exporter
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    environment:
+      # Mot de passe admin de la Bbox, URL-encodé (voir README).
+      BB_PASSWORD: "${BB_PASSWORD}"
+      BB_URL: "https://mabbox.bytel.fr"
+      BB_REFRESH_SECONDS: "60"
+      BB_LISTEN: "0.0.0.0:9100"
+      # Métriques par appareil : active (défaut), all ou off.
+      BB_HOST_METRICS: "active"
+    # Permet de joindre mabbox.bytel.fr (192.168.1.254) depuis le conteneur.
+    extra_hosts:
+      - "mabbox.bytel.fr:192.168.1.254"
