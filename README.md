@@ -72,6 +72,20 @@ docker run -d --name bb_exporter -p 9100:9100 \
   bb_exporter:latest
 ```
 
+### Image pré-construite (GitHub Container Registry)
+
+Un workflow GitHub Actions ([`.github/workflows/docker.yml`](.github/workflows/docker.yml))
+construit l'image **multi-arch (linux/amd64 + linux/arm64)** et la pousse sur le
+GHCR du dépôt à chaque push sur la branche par défaut et sur chaque tag `v*` :
+
+```sh
+docker pull ghcr.io/<owner>/<repo>:latest
+```
+
+Tags publiés : `latest` (branche par défaut), la version sémantique sur tag `vX.Y.Z`,
+et le SHA court de commit. Les pull requests déclenchent un build de validation
+sans push.
+
 ### docker compose
 
 Renseignez `BB_PASSWORD` dans un fichier `.env` (déjà ignoré par git), puis :
